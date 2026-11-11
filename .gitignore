@@ -1,0 +1,14 @@
+# course material and personal files
+slides/
+*Tutorial*.docx
+
+# temporary / regenerable files
+outputs/preview/
+outputs/_*
+outputs/review_features.csv
+__pycache__/
+.ipynb_checkpoints/
+
+# office lock files
+~$*
+.~lock*

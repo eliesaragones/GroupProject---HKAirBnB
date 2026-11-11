@@ -5,7 +5,7 @@ import nbformat as nbf
 from nbclient import NotebookClient
 
 ROOT = Path(__file__).resolve().parent.parent
-NB_NAME = "Code GroupName IS3240.ipynb"
+NB_NAME = "Code.ipynb"
 
 def parse_parts():
     cells = []

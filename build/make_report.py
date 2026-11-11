@@ -8,7 +8,7 @@ from docx_helpers import *
 ROOT = Path(__file__).resolve().parent.parent
 R = json.loads((ROOT / "outputs" / "results.json").read_text(encoding="utf8"))
 FIG = ROOT / "outputs" / "figures"
-OUT_NAME = "Report GroupName IS3240.docx"
+OUT_NAME = "Report.docx"
 
 P = lambda x, d=0: f"{100*x:.{d}f}%"
 N = lambda x: f"{x:,.0f}"
