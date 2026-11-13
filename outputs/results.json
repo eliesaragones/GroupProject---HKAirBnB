@@ -64,16 +64,12 @@
     "share_listings_from_hosts_5plus": 0.730722709404294,
     "max_host_listings": 344,
     "n_hosts": 1533,
-    "reviews_2019": 10878,
-    "reviews_2025": 24061,
-    "reviews_2021": 2684,
-    "superhost_share": 0.12050196552766858,
     "price_skew_raw": 3.149703275572314,
     "price_skew_log": 0.4092588313920527
   },
   "geo": {
     "n_stations": 98,
-    "median_dist_mtr_m": 290.47915467864453,
+    "median_dist_mtr_m": 290.4791546784547,
     "share_within_500m": 0.8045004500450045,
     "band_rel_price": {
       "< 250 m": 0.9900240798073616,
@@ -88,18 +84,40 @@
       "0.5-1 km": 547,
       "1-2 km": 138,
       "2+ km": 401
-    },
-    "district_rel_price": {
-      "Sham Shui Po": 0.9881320949432405,
-      "Southern": 0.9881320949432405,
-      "Yau Tsim Mong": 0.9881320949432405,
-      "Central & Western": 1.007858881155736,
-      "Eastern": 1.0091941786748038,
-      "Wan Chai": 1.0094599243206055,
-      "Sai Kung": 1.0781671159029649,
-      "Kowloon City": 1.1444976076555025,
-      "Islands": 1.1859838274932615
     }
+  },
+  "price_map": {
+    "ref_short": 1113.0,
+    "ref_monthly": 645.13,
+    "most_expensive": "Eastern",
+    "cheapest": "Yau Tsim Mong",
+    "districts_ge30_short": [
+      {
+        "district": "Eastern",
+        "median": 1293.5149999999999,
+        "n": 32
+      },
+      {
+        "district": "Wan Chai",
+        "median": 1205.0,
+        "n": 253
+      },
+      {
+        "district": "Central & Western",
+        "median": 1153.0,
+        "n": 301
+      },
+      {
+        "district": "Islands",
+        "median": 1087.9450000000002,
+        "n": 120
+      },
+      {
+        "district": "Yau Tsim Mong",
+        "median": 957.125,
+        "n": 508
+      }
+    ]
   },
   "features": {
     "families": {
@@ -109,10 +127,9 @@
       "Transit & centrality": 5,
       "Local competition": 2,
       "Amenities": 31,
-      "Host profile": 2,
-      "Listing text": 10
+      "Host profile": 2
     },
-    "n_total": 66,
+    "n_total": 56,
     "amenities_flagged": [
       "Wifi",
       "Air conditioning",
@@ -170,22 +187,15 @@
       "Sai Kung"
     ]
   },
-  "reviews": {
-    "share_english": 0.6125168072362792,
-    "n_listings_gv": 2372,
-    "share_with_rating": 0.5521152115211521,
-    "share_with_gv": 0.3582358235823582,
-    "n_reviews": 122715
-  },
   "segments": {
     "k": 5,
     "silhouette": {
-      "3": 0.21738328941346935,
-      "4": 0.2236510150518254,
-      "5": 0.2312218154479138,
-      "6": 0.23100650274250134,
-      "7": 0.2370286688123737,
-      "8": 0.24759326152111952
+      "3": 0.21738328941349921,
+      "4": 0.22365101505186108,
+      "5": 0.23122181544796838,
+      "6": 0.23100650274256593,
+      "7": 0.23702866881243853,
+      "8": 0.2475932615213364
     },
     "profile": [
       {
@@ -248,16 +258,12 @@
         "dist_central": 2.932419618750094,
         "pro_host": 0.5459363957597173
       }
-    ],
-    "pca_var": [
-      0.2624888100311322,
-      0.1876959747107966
     ]
   },
   "split": {
-    "seed": 197,
-    "n_train": 4386,
-    "n_test": 1169,
+    "seed": 37,
+    "n_train": 4437,
+    "n_test": 1118,
     "hosts_train": 940,
     "hosts_test": 235,
     "test_size": 0.2,
@@ -266,622 +272,229 @@
   "models": {
     "table": {
       "Global median": {
-        "MAE": 479.95185628742513,
-        "RMSE": 869.5951012118617,
-        "R2": -0.1483740231308852,
-        "R2_log": -0.034548150332833316,
-        "MedAPE": 0.5136534939048786,
-        "Within20": 0.1864841745081266,
-        "Within30": 0.2763045337895637
+        "MAE": 533.6228890876565,
+        "RMSE": 889.8681793790959,
+        "R2_log": -0.005955988866253703,
+        "MedAPE": 0.6871999999999998,
+        "Within20": 0.148479427549195
       },
       "Comparable-listings baseline": {
-        "MAE": 353.5451796407186,
-        "RMSE": 713.6803667047187,
-        "R2": 0.22650646182297673,
-        "R2_log": 0.5111935371839539,
-        "MedAPE": 0.3257076963136557,
-        "Within20": 0.3319076133447391,
-        "Within30": 0.4568006843455945
+        "MAE": 365.5208899821109,
+        "RMSE": 734.6607380089446,
+        "R2_log": 0.5653876007349217,
+        "MedAPE": 0.23598576349313802,
+        "Within20": 0.4561717352415027
       },
-      "Ridge": {
-        "MAE": 299.8614097422212,
-        "RMSE": 626.4793074675239,
-        "R2": 0.4039775029189798,
-        "R2_log": 0.6820567234962229,
-        "MedAPE": 0.26013576715814385,
-        "Within20": 0.40119760479041916,
-        "Within30": 0.5757057313943541,
-        "CV MAE (log)": 0.36329600740372153
+      "Linear regression": {
+        "MAE": 325.74994723183136,
+        "RMSE": 651.067150406293,
+        "R2_log": 0.7252821605712241,
+        "MedAPE": 0.25998845020689043,
+        "Within20": 0.40250447227191416,
+        "CV MAE (log)": 0.37340286573583314
       },
       "Random forest": {
-        "MAE": 280.0324180767219,
-        "RMSE": 590.1358883002612,
-        "R2": 0.47112474976583485,
-        "R2_log": 0.7155739706253168,
-        "MedAPE": 0.24701413894515836,
-        "Within20": 0.4328485885372113,
-        "Within30": 0.5808383233532934,
-        "CV MAE (log)": 0.30781270915949144
+        "MAE": 273.01410520144657,
+        "RMSE": 582.0663003300164,
+        "R2_log": 0.7957231659241457,
+        "MedAPE": 0.18394260495251724,
+        "Within20": 0.5330948121645797,
+        "CV MAE (log)": 0.32741384721358263
       },
       "Gradient boosting": {
-        "MAE": 269.8141763408628,
-        "RMSE": 557.6378340945109,
-        "R2": 0.5277699122956943,
-        "R2_log": 0.7324095193596836,
-        "MedAPE": 0.22762748891561999,
-        "Within20": 0.4414029084687767,
-        "Within30": 0.6090675791274593,
-        "CV MAE (log)": 0.309172764101879
-      },
-      "Blend (RF + GB)": {
-        "MAE": 271.637318728207,
-        "RMSE": 570.8236158049847,
-        "R2": 0.5051733798200905,
-        "R2_log": 0.7302603657829361,
-        "MedAPE": 0.23295104369052883,
-        "Within20": 0.4354148845166809,
-        "Within30": 0.5979469632164243
+        "MAE": 267.0348329067111,
+        "RMSE": 562.5078672749934,
+        "R2_log": 0.8017448495196884,
+        "MedAPE": 0.19771769846942555,
+        "Within20": 0.5053667262969589,
+        "CV MAE (log)": 0.32325001751362537
       }
     },
-    "best": "Random forest",
+    "best": "Gradient boosting",
     "best_params": {
-      "Ridge": {
-        "alpha": 161.55980984398747
-      },
+      "Linear regression": {},
       "Random forest": {
-        "min_samples_leaf": 2,
-        "max_features": 0.5,
-        "max_depth": 20
+        "max_depth": 10,
+        "max_features": 0.3,
+        "min_samples_leaf": 5
       },
       "Gradient boosting": {
-        "min_samples_leaf": 40,
-        "max_leaf_nodes": 31,
-        "max_iter": 350,
-        "max_depth": 6,
-        "learning_rate": 0.03,
-        "l2_regularization": 0
+        "learning_rate": 0.05,
+        "max_depth": 3,
+        "n_estimators": 150
       }
     },
-    "mae_reduction": 0.20793031781313542,
+    "mae_reduction": 0.2694402967781673,
     "mae_reduction_ci": [
-      0.15642242559123484,
-      0.2673478180896008
+      0.19998539523313635,
+      0.3310122828936252
     ],
     "cv_mae_log": {
-      "Ridge": 0.36329600740372153,
-      "Random forest": 0.30781270915949144,
-      "Gradient boosting": 0.309172764101879
+      "Linear regression": 0.37340286573583314,
+      "Random forest": 0.32741384721358263,
+      "Gradient boosting": 0.32325001751362537
     },
     "by_regime_room": {
       "Entire home/apt | long stay": {
-        "n": 177.0,
-        "median_price": 675.72,
-        "MAE": 312.08022715686496,
-        "MedAPE": 0.28320885199410156,
-        "Within20": 0.3728813559322034
+        "n": 65.0,
+        "median_price": 616.1499999999999,
+        "MAE": 206.15559044277467,
+        "MedAPE": 0.2281902307663208,
+        "Within20": 0.4
       },
       "Entire home/apt | short stay": {
-        "n": 227.0,
-        "median_price": 1288.4000000000005,
-        "MAE": 494.30169610514093,
-        "MedAPE": 0.24740115028683285,
-        "Within20": 0.4185022026431718
+        "n": 277.0,
+        "median_price": 1254.9999999999995,
+        "MAE": 439.5082303314701,
+        "MedAPE": 0.2261301139536126,
+        "Within20": 0.4404332129963899
       },
       "Other | long stay": {
-        "n": 2.0,
-        "median_price": 200.16500000000008,
-        "MAE": 285.3959921747275,
-        "MedAPE": 1.5288509516437723,
+        "n": 4.0,
+        "median_price": 125.51499999999999,
+        "MAE": 44.834852158307484,
+        "MedAPE": 0.5105651835342234,
         "Within20": 0.5
       },
       "Other | short stay": {
-        "n": 21.0,
-        "median_price": 410.00000000000017,
-        "MAE": 179.5074728763726,
-        "MedAPE": 0.4213773066026554,
-        "Within20": 0.23809523809523808
+        "n": 13.0,
+        "median_price": 475.00000000000006,
+        "MAE": 169.35282024078043,
+        "MedAPE": 0.2919190776675948,
+        "Within20": 0.23076923076923078
       },
       "Private room | long stay": {
-        "n": 319.0,
-        "median_price": 207.27000000000007,
-        "MAE": 46.688665344392845,
-        "MedAPE": 0.11235407158485725,
-        "Within20": 0.670846394984326
+        "n": 425.0,
+        "median_price": 178.30000000000007,
+        "MAE": 55.18586266795282,
+        "MedAPE": 0.1027230794693054,
+        "Within20": 0.6870588235294117
       },
       "Private room | short stay": {
-        "n": 423.0,
-        "median_price": 548.9999999999999,
-        "MAE": 332.5746533083717,
-        "MedAPE": 0.31571524470365675,
-        "Within20": 0.29550827423167847
-      }
-    },
-    "by_district": {
-      "Yau Tsim Mong": {
-        "n": 528.0,
-        "median_price": 549.9999999999998,
-        "MAE": 257.9838532864021,
-        "MedAPE": 0.2670045458649508,
-        "Within20": 0.3712121212121212
-      },
-      "Wan Chai": {
-        "n": 299.0,
-        "median_price": 270.2100000000001,
-        "MAE": 151.33466444252244,
-        "MedAPE": 0.15397328207017744,
-        "Within20": 0.5719063545150501
-      },
-      "Central & Western": {
-        "n": 150.0,
-        "median_price": 840.645,
-        "MAE": 447.8914187970715,
-        "MedAPE": 0.287558162369237,
-        "Within20": 0.38
-      },
-      "Kowloon City": {
-        "n": 59.0,
-        "median_price": 233.24000000000007,
-        "MAE": 134.3869850570008,
-        "MedAPE": 0.11981498497987599,
-        "Within20": 0.6101694915254238
-      },
-      "Other districts": {
-        "n": 34.0,
-        "median_price": 735.5,
-        "MAE": 745.7958944859503,
-        "MedAPE": 0.5418865722696391,
-        "Within20": 0.23529411764705882
-      },
-      "Eastern": {
-        "n": 33.0,
-        "median_price": 994.0000000000002,
-        "MAE": 368.94890279705254,
-        "MedAPE": 0.271522851390082,
-        "Within20": 0.45454545454545453
-      },
-      "Islands": {
-        "n": 30.0,
-        "median_price": 1107.5850000000005,
-        "MAE": 583.7508042985023,
-        "MedAPE": 0.23472242641440583,
-        "Within20": 0.36666666666666664
-      },
-      "Sham Shui Po": {
-        "n": 16.0,
-        "median_price": 274.42500000000007,
-        "MAE": 173.95948268953032,
-        "MedAPE": 0.1594640678566241,
-        "Within20": 0.5625
-      },
-      "Sai Kung": {
-        "n": 12.0,
-        "median_price": 436.0000000000001,
-        "MAE": 340.0014198174188,
-        "MedAPE": 0.49058929383337213,
-        "Within20": 0.16666666666666666
-      },
-      "Southern": {
-        "n": 8.0,
-        "median_price": 2399.2800000000007,
-        "MAE": 1109.0681869509954,
-        "MedAPE": 0.3745351496380137,
-        "Within20": 0.125
+        "n": 334.0,
+        "median_price": 589.165,
+        "MAE": 411.874647615156,
+        "MedAPE": 0.31336039029270213,
+        "Within20": 0.3592814371257485
       }
     },
     "by_segment": {
       "Private rooms, monthly": {
-        "n": 319.0,
-        "median_price": 207.27000000000007,
-        "MAE": 50.3118998965851,
-        "MedAPE": 0.11397962431868298,
-        "Within20": 0.6520376175548589
+        "n": 418.0,
+        "median_price": 177.33,
+        "MAE": 38.50117415625321,
+        "MedAPE": 0.10052692123747305,
+        "Within20": 0.7009569377990431
       },
       "Private rooms, short-stay": {
-        "n": 401.0,
-        "median_price": 520.0,
-        "MAE": 280.9203296111496,
-        "MedAPE": 0.2945430918366415,
-        "Within20": 0.32169576059850374
-      },
-      "Whole units, mixed stay": {
-        "n": 281.0,
-        "median_price": 730.0,
-        "MAE": 349.3832707023718,
-        "MedAPE": 0.2818367893329213,
-        "Within20": 0.37722419928825623
+        "n": 293.0,
+        "median_price": 580.0,
+        "MAE": 388.105922822908,
+        "MedAPE": 0.2942087449529886,
+        "Within20": 0.3583617747440273
       },
       "Mixed units, short-stay, outer areas": {
-        "n": 69.0,
-        "median_price": 940.0000000000001,
-        "MAE": 590.5986756840872,
-        "MedAPE": 0.3983631435477939,
-        "Within20": 0.2608695652173913
+        "n": 93.0,
+        "median_price": 699.9999999999998,
+        "MAE": 494.5928115487444,
+        "MedAPE": 0.34697474916124044,
+        "Within20": 0.3010752688172043
+      },
+      "Whole units, mixed stay": {
+        "n": 168.0,
+        "median_price": 796.4899999999999,
+        "MAE": 294.697986216515,
+        "MedAPE": 0.24305862943002174,
+        "Within20": 0.43452380952380953
       },
       "Whole units, short-stay, groups": {
-        "n": 99.0,
-        "median_price": 1649.9999999999998,
-        "MAE": 603.346876778159,
-        "MedAPE": 0.21368178961574102,
-        "Within20": 0.45454545454545453
+        "n": 146.0,
+        "median_price": 1582.095,
+        "MAE": 501.57550580047496,
+        "MedAPE": 0.21286608569152593,
+        "Within20": 0.4520547945205479
       }
     }
   },
-  "ablation": [
-    {
-      "step": "Comparable-listings baseline",
-      "kind": "baseline",
-      "MedAPE": 0.28728666574330003,
-      "MedAPE_sd": 0.0005067386658195734,
-      "MAE": 340.8913390339034,
-      "Within20": 0.3881188118811881,
-      "gain_pts": NaN,
-      "gain_sd": NaN
-    },
-    {
-      "step": "Property & capacity",
-      "kind": "launch",
-      "MedAPE": 0.3705012320766689,
-      "MedAPE_sd": 0.015276505777383997,
-      "MAE": 319.7303583456864,
-      "Within20": 0.2552655265526553,
-      "gain_pts": -8.321456633336888,
-      "gain_sd": 1.5748228417707084
-    },
-    {
-      "step": "+ Stay policy & quote",
-      "kind": "launch",
-      "MedAPE": 0.24527730590225494,
-      "MedAPE_sd": 0.002533795595859818,
-      "MAE": 285.7231471998643,
-      "Within20": 0.4175217521752175,
-      "gain_pts": 12.52239261744139,
-      "gain_sd": 1.2785479899076237
-    },
-    {
-      "step": "+ Location",
-      "kind": "launch",
-      "MedAPE": 0.23996706764723266,
-      "MedAPE_sd": 0.00830991400442018,
-      "MAE": 269.8796815454034,
-      "Within20": 0.43582358235823576,
-      "gain_pts": 0.5310238255022286,
-      "gain_sd": 0.7682165908163855
-    },
-    {
-      "step": "+ Transit & centrality",
-      "kind": "launch",
-      "MedAPE": 0.24403676997502655,
-      "MedAPE_sd": 0.0066813898048555045,
-      "MAE": 272.2155500027854,
-      "Within20": 0.42496249624962495,
-      "gain_pts": -0.40697023277938654,
-      "gain_sd": 0.18623749300714995
-    },
-    {
-      "step": "+ Local competition",
-      "kind": "launch",
-      "MedAPE": 0.2401880342400774,
-      "MedAPE_sd": 0.007455524922564891,
-      "MAE": 271.379162224341,
-      "Within20": 0.43048304830483053,
-      "gain_pts": 0.384873573494914,
-      "gain_sd": 0.0924268458420548
-    },
-    {
-      "step": "+ Amenities",
-      "kind": "launch",
-      "MedAPE": 0.22478685930281225,
-      "MedAPE_sd": 0.004779188671118997,
-      "MAE": 257.3222874806151,
-      "Within20": 0.45718571857185714,
-      "gain_pts": 1.5401174937265163,
-      "gain_sd": 0.5888188514212073
-    },
-    {
-      "step": "+ Host profile",
-      "kind": "launch",
-      "MedAPE": 0.2259446799121939,
-      "MedAPE_sd": 0.0029953230087700474,
-      "MAE": 258.6291376832155,
-      "Within20": 0.45538553855385544,
-      "gain_pts": -0.11578206093816878,
-      "gain_sd": 0.2944953017705932
-    },
-    {
-      "step": "+ Listing text",
-      "kind": "launch",
-      "MedAPE": 0.2244435572983902,
-      "MedAPE_sd": 0.000842403543629101,
-      "MAE": 259.00360005298825,
-      "Within20": 0.45934593459345935,
-      "gain_pts": 0.15011226138037237,
-      "gain_sd": 0.22281548117141703
-    },
-    {
-      "step": "+ Reviews & ratings",
-      "kind": "experience",
-      "MedAPE": 0.21978861408961378,
-      "MedAPE_sd": 0.002694469185240115,
-      "MAE": 255.37533798658365,
-      "Within20": 0.46468646864686464,
-      "gain_pts": 0.4654943208776426,
-      "gain_sd": 0.23811972915856258
-    },
-    {
-      "step": "+ Guest voice (review text)",
-      "kind": "experience",
-      "MedAPE": 0.2178003849110978,
-      "MedAPE_sd": 0.003125807282320987,
-      "MAE": 253.6289547781239,
-      "Within20": 0.4688868886888689,
-      "gain_pts": 0.19882291785159692,
-      "gain_sd": 0.1177463408574952
-    }
-  ],
   "importance": {
-    "base_mae_log": 0.316549911078522,
+    "base_error": 0.19771769846942555,
     "table": [
       {
         "family": "Property & capacity",
-        "delta": 21.020861972220082,
-        "sd": 1.0120483917801821
+        "increase_pts": 21.437192900294868,
+        "n_columns": 22
       },
       {
         "family": "Stay policy & quote",
-        "delta": 17.413969813300092,
-        "sd": 0.6293228793741327
+        "increase_pts": 16.905370015820427,
+        "n_columns": 4
       },
       {
         "family": "Amenities",
-        "delta": 10.985966983699024,
-        "sd": 0.4828265930255206
-      },
-      {
-        "family": "Location",
-        "delta": 1.8738530384362424,
-        "sd": 0.23467193101830228
-      },
-      {
-        "family": "Transit & centrality",
-        "delta": 1.3190260209998743,
-        "sd": 0.2132189245950572
-      },
-      {
-        "family": "Listing text",
-        "delta": 1.1047024674972517,
-        "sd": 0.09490548062520321
+        "increase_pts": 10.452939756488453,
+        "n_columns": 31
       },
       {
         "family": "Host profile",
-        "delta": 0.4179942494107099,
-        "sd": 0.07032693642821107
+        "increase_pts": 1.5863849033317259,
+        "n_columns": 2
+      },
+      {
+        "family": "Location",
+        "increase_pts": 1.036786565170018,
+        "n_columns": 15
       },
       {
         "family": "Local competition",
-        "delta": 0.018443773177619176,
-        "sd": 0.07927557765137752
+        "increase_pts": 0.6093862638308395,
+        "n_columns": 2
+      },
+      {
+        "family": "Transit & centrality",
+        "increase_pts": 0.4182941816264457,
+        "n_columns": 5
       }
-    ]
-  },
-  "hedonic": {
-    "n": 5555,
-    "r2": 0.6951215318278856,
-    "terms": {
-      "Monthly-stay policy (28+ nights)": {
-        "premium": -0.37433749656408455,
-        "lo": -0.4402864211207833,
-        "hi": -0.3006180607775276,
-        "p": 1.5606890597842402e-16
-      },
-      "Professional host (5+ listings)": {
-        "premium": -0.17917943023105598,
-        "lo": -0.25055221529159066,
-        "hi": -0.10100954128785478,
-        "p": 2.0971657063096382e-05
-      },
-      "Shared bathroom": {
-        "premium": -0.10658658278494326,
-        "lo": -0.1954792921233025,
-        "hi": -0.007871983598193744,
-        "p": 0.035048049217832736
-      },
-      "Host lives in Hong Kong": {
-        "premium": -0.10541242877628032,
-        "lo": -0.19986998205415274,
-        "hi": 0.00019609893215766228,
-        "p": 0.05039969791560819
-      },
-      "Amenity: Hangers": {
-        "premium": -0.03345401910702128,
-        "lo": -0.08648512076403303,
-        "hi": 0.022655628731206967,
-        "p": 0.2372589122124299
-      },
-      "Amenity: Washer": {
-        "premium": -0.018742395676791035,
-        "lo": -0.06143641867471605,
-        "hi": 0.025893722279872522,
-        "p": 0.4044874178197283
-      },
-      "Amenity: Shampoo": {
-        "premium": -0.010564389847294353,
-        "lo": -0.09744673503812717,
-        "hi": 0.08468149708550743,
-        "p": 0.8208174385638376
-      },
-      "Amenity: Kitchen": {
-        "premium": -0.006147271261084386,
-        "lo": -0.07986495364698087,
-        "hi": 0.07347638842443449,
-        "p": 0.8753873079215468
-      },
-      "+500 m from nearest MTR": {
-        "premium": -0.00591908829392751,
-        "lo": -0.025022190950343304,
-        "hi": 0.013558308554329601,
-        "p": 0.5487278437200289
-      },
-      "Amenity: Elevator": {
-        "premium": -0.005453607056035925,
-        "lo": -0.06318340086271446,
-        "hi": 0.05583369106475344,
-        "p": 0.8577504145977028
-      },
-      "+100 other listings within 500 m": {
-        "premium": 0.0008533916771766847,
-        "lo": -0.013437285456030179,
-        "hi": 0.01535107384910539,
-        "p": 0.9074491533690664
-      },
-      "Amenity: Hot water": {
-        "premium": 0.008832102829118949,
-        "lo": -0.06419934023877316,
-        "hi": 0.08756304142626137,
-        "p": 0.8185952464302024
-      },
-      "+5 km from Central": {
-        "premium": 0.016895159685387906,
-        "lo": -0.05272887931600034,
-        "hi": 0.09163653700842445,
-        "p": 0.6433634061667624
-      },
-      "+1 bathroom": {
-        "premium": 0.03200775517268584,
-        "lo": -0.024899718270141147,
-        "hi": 0.09223638500765419,
-        "p": 0.27628768758212197
-      },
-      "+1 bedroom": {
-        "premium": 0.054808915624947385,
-        "lo": 0.009440666111918405,
-        "hi": 0.10221619341668076,
-        "p": 0.017363631747843396
-      },
-      "Amenity: Iron": {
-        "premium": 0.06924250847861946,
-        "lo": -0.004866409374436165,
-        "hi": 0.14887041569861892,
-        "p": 0.06771698269048913
-      },
-      "+1 guest accommodated": {
-        "premium": 0.09414796599830555,
-        "lo": 0.07441815341564295,
-        "hi": 0.11424008212480663,
-        "p": 3.277355645714077e-22
-      },
-      "District: Kowloon City (vs. Yau Tsim Mong)": {
-        "premium": 0.13985117165015337,
-        "lo": 0.02290600983940405,
-        "hi": 0.27016625282728657,
-        "p": 0.017785077687749038
-      },
-      "District: Islands (vs. Yau Tsim Mong)": {
-        "premium": 0.1736969852189456,
-        "lo": -0.11799659196647327,
-        "hi": 0.5618586057205777,
-        "p": 0.27191036527472134
-      },
-      "District: Wan Chai (vs. Yau Tsim Mong)": {
-        "premium": 0.19266831956402064,
-        "lo": 0.09894183403585077,
-        "hi": 0.2943885439939127,
-        "p": 2.449501990685162e-05
-      },
-      "Amenity: Essentials": {
-        "premium": 0.19520813786957314,
-        "lo": 0.09075099263140785,
-        "hi": 0.30966875343691425,
-        "p": 0.00013254367543827266
-      },
-      "Amenity: TV": {
-        "premium": 0.20493481525928003,
-        "lo": 0.12951481522290798,
-        "hi": 0.2853907619949112,
-        "p": 1.576814879267627e-08
-      },
-      "Amenity: Hair dryer": {
-        "premium": 0.22884006376391008,
-        "lo": 0.11439349338282279,
-        "hi": 0.35504012835486853,
-        "p": 3.603791859879365e-05
-      },
-      "Weekend check-in (short stays)": {
-        "premium": 0.32206975252437475,
-        "lo": 0.2301203364654143,
-        "hi": 0.42089223202514203,
-        "p": 3.1675278145528355e-14
-      },
-      "District: Central & Western (vs. Yau Tsim Mong)": {
-        "premium": 0.34218746003283074,
-        "lo": 0.1765069013994336,
-        "hi": 0.5311998388845567,
-        "p": 1.196738383646914e-05
-      },
-      "Entire home (vs. private room)": {
-        "premium": 0.5176152475195344,
-        "lo": 0.3592242777235535,
-        "hi": 0.6944635828320642,
-        "p": 1.1940759609193963e-13
-      }
-    },
-    "amenities_used": [
-      "Kitchen",
-      "Hot water",
-      "Hangers",
-      "Hair dryer",
-      "TV",
-      "Washer",
-      "Shampoo",
-      "Elevator",
-      "Iron",
-      "Essentials"
     ]
   },
   "oof": {
     "model": {
-      "MAE": 257.9997541225297,
-      "RMSE": 575.8007254093865,
-      "R2": 0.4822536782056517,
-      "R2_log": 0.7627201474385532,
-      "MedAPE": 0.21014659899648866,
-      "Within20": 0.4819081908190819,
-      "Within30": 0.6252025202520252
+      "MAE": 259.95192183292716,
+      "RMSE": 576.5883386898003,
+      "R2_log": 0.7633934325898589,
+      "MedAPE": 0.23118608770526677,
+      "Within20": 0.44284428442844287
     },
     "baseline": {
-      "MAE": 335.43951845184523,
-      "RMSE": 685.4688670863535,
-      "R2": 0.26625006448952837,
-      "R2_log": 0.5794413577970945,
-      "MedAPE": 0.2858256224228083,
-      "Within20": 0.3935193519351935,
-      "Within30": 0.5171917191719172
+      "MAE": 335.7234068406841,
+      "RMSE": 685.7790042879316,
+      "R2_log": 0.5778763416853833,
+      "MedAPE": 0.28610581022372,
+      "Within20": 0.39225922592259227
     },
-    "mae_reduction": 0.2308605875858738
+    "mae_reduction": 0.22569616375814372
   },
   "demand": {
     "n": 2412,
     "irr": {
       "controls": {
-        "irr_10": 0.9409349746206256,
-        "lo": 0.9132512091371842,
-        "hi": 0.9694579296541868,
-        "p": 6.447174807099137e-05
+        "irr_10": 0.9425039440023875,
+        "lo": 0.9146241402356223,
+        "hi": 0.9712335869805614,
+        "p": 0.00011097133961889917
       },
       "controls + rating": {
-        "irr_10": 0.9305214556045942,
-        "lo": 0.9085977548855062,
-        "hi": 0.9529741568089198,
-        "p": 3.2264954354742884e-09
+        "irr_10": 0.9305755172148673,
+        "lo": 0.9078866159860687,
+        "hi": 0.9538314344453405,
+        "p": 1.1079422179757115e-08
       }
-    },
-    "occupancy_effect_10pct": -0.0831038664479069,
-    "occupancy_p": 4.000673657212475e-07
+    }
   },
   "gap": {
     "shares": {
-      "In line": 0.5245724572457245,
-      "Below benchmark": 0.2684068406840684,
-      "Above benchmark": 0.207020702070207
+      "In line": 0.4889288928892889,
+      "Below benchmark": 0.2750675067506751,
+      "Above benchmark": 0.236003600360036
     },
     "thresholds": [
       -0.19999999999999996,
@@ -889,283 +502,225 @@
     ],
     "quintiles": [
       {
-        "gap_q": 0,
-        "gap_med": -0.4179620336717369,
-        "rev_mean": 10.126293995859212,
-        "rev_med": 2.0,
+        "gap_group": 0,
+        "gap_med": -0.40194128060477263,
+        "rev_mean": 10.58592132505176,
         "n": 483
       },
       {
-        "gap_q": 1,
-        "gap_med": -0.23265284590523844,
-        "rev_mean": 11.5,
-        "rev_med": 3.0,
+        "gap_group": 1,
+        "gap_med": -0.22459800984493883,
+        "rev_mean": 10.143153526970954,
         "n": 482
       },
       {
-        "gap_q": 2,
-        "gap_med": -0.07065583988992691,
-        "rev_mean": 9.699170124481327,
-        "rev_med": 3.0,
+        "gap_group": 2,
+        "gap_med": -0.04959639594735027,
+        "rev_mean": 9.742738589211617,
         "n": 482
       },
       {
-        "gap_q": 3,
-        "gap_med": 0.12965088928693913,
-        "rev_mean": 8.342323651452283,
-        "rev_med": 2.0,
+        "gap_group": 3,
+        "gap_med": 0.17429738312057874,
+        "rev_mean": 9.437759336099585,
         "n": 482
       },
       {
-        "gap_q": 4,
-        "gap_med": 0.6509438616206202,
-        "rev_mean": 5.097308488612836,
-        "rev_med": 1.0,
+        "gap_group": 4,
+        "gap_med": 0.6924541510397948,
+        "rev_mean": 4.855072463768116,
         "n": 483
       }
     ]
   },
   "existing_model": {
     "Launch-time model (all test)": {
-      "MAE": 269.8141763408628,
-      "RMSE": 557.6378340945109,
-      "R2": 0.5277699122956943,
-      "R2_log": 0.7324095193596836,
-      "MedAPE": 0.22762748891561999,
-      "Within20": 0.4414029084687767,
-      "Within30": 0.6090675791274593
+      "MAE": 267.0348329067111,
+      "RMSE": 562.5078672749934,
+      "R2_log": 0.8017448495196884,
+      "MedAPE": 0.19771769846942555,
+      "Within20": 0.5053667262969589
     },
     "+ experience (all test)": {
-      "MAE": 263.80588678184535,
-      "RMSE": 543.5770810414293,
-      "R2": 0.5512840932883263,
-      "R2_log": 0.7487151164884496,
-      "MedAPE": 0.22794471244874823,
-      "Within20": 0.44568006843455943,
-      "Within30": 0.6065012831479898
+      "MAE": 259.13516595926006,
+      "RMSE": 545.182012727741,
+      "R2_log": 0.8102666056224324,
+      "MedAPE": 0.19334863798186025,
+      "Within20": 0.5134168157423972
     },
-    "Launch-time model (rated, n=623)": {
-      "MAE": 277.8073505459208,
-      "RMSE": 544.2821200774188,
-      "R2": 0.5328450033353167,
-      "R2_log": 0.6668751245581579,
-      "MedAPE": 0.2659506875437447,
-      "Within20": 0.39646869983948635,
-      "Within30": 0.5553772070626003
+    "Launch-time model (rated, n=568)": {
+      "MAE": 337.76654778652517,
+      "RMSE": 579.0960376684259,
+      "R2_log": 0.6235730511148861,
+      "MedAPE": 0.24040120032646672,
+      "Within20": 0.44366197183098594
     },
     "+ experience (rated)": {
-      "MAE": 270.4749473053077,
-      "RMSE": 534.6858045572833,
-      "R2": 0.5491727373120576,
-      "R2_log": 0.6895878698538833,
-      "MedAPE": 0.24791040061188466,
-      "Within20": 0.39807383627608345,
-      "Within30": 0.5730337078651685
-    }
-  },
-  "guest_voice": {
-    "n": 1990,
-    "table": {
-      "Mentions location / transit": {
-        "Below benchmark": 0.5766914781212978,
-        "In line": 0.6180754227850416,
-        "Above benchmark": 0.6209719352717438
-      },
-      "Praises cleanliness": {
-        "Below benchmark": 0.3197923487072348,
-        "In line": 0.3126795237915842,
-        "Above benchmark": 0.31383629589695905
-      },
-      "Complains of dirt / smell / bugs": {
-        "Below benchmark": 0.05352288389913819,
-        "In line": 0.04694600333307069,
-        "Above benchmark": 0.036621776736561716
-      },
-      "Mentions noise": {
-        "Below benchmark": 0.04172203253092112,
-        "In line": 0.04261184606202199,
-        "Above benchmark": 0.03667670239696096
-      },
-      "Says small / cramped": {
-        "Below benchmark": 0.15504278667241023,
-        "In line": 0.13729544939818483,
-        "Above benchmark": 0.11584711447320138
-      },
-      "Says good value": {
-        "Below benchmark": 0.09709050684915846,
-        "In line": 0.07969902915246538,
-        "Above benchmark": 0.06918439351119339
-      },
-      "Says expensive / overpriced": {
-        "Below benchmark": 0.013448131519288963,
-        "In line": 0.011621788637068812,
-        "Above benchmark": 0.015959420217824365
-      },
-      "Praises host service": {
-        "Below benchmark": 0.3330212691742723,
-        "In line": 0.34532045649011034,
-        "Above benchmark": 0.3697626947654338
-      },
-      "Average review sentiment (VADER, -1..+1)": {
-        "Below benchmark": 0.6789247133967706,
-        "In line": 0.696580475203065,
-        "Above benchmark": 0.7229300414815731
-      }
-    },
-    "pvalues": {
-      "gv_location": 0.00021246989264611527,
-      "gv_clean": 0.8726614692191469,
-      "gv_dirty": 0.00038878848458631855,
-      "gv_noise": 0.047889216043023736,
-      "gv_small": 7.852281098471462e-07,
-      "gv_value": 5.224362881814517e-07,
-      "gv_pricey": 0.6815186811097765,
-      "gv_host": 0.0009727998589115226,
-      "gv_sentiment": 8.750960317129865e-05
+      "MAE": 326.06403504068794,
+      "RMSE": 558.433549421525,
+      "R2_log": 0.6434254065257972,
+      "MedAPE": 0.2230827901108727,
+      "Within20": 0.4595070422535211
     }
   },
   "band": {
-    "coverage": 0.7912745936698032,
+    "coverage": 0.8354203935599285,
     "coverage_by": {
-      "short": 0.7943368107302533,
-      "long": 0.7871485943775101
+      "short": 0.8141025641025641,
+      "long": 0.8623481781376519
     },
     "q_short": [
-      -0.5775791613232687,
-      0.6283659699476615
+      -0.5640577887982153,
+      0.6304963275034626
     ],
     "q_long": [
-      -0.38912686079826786,
-      0.32671191700398916
+      -0.4167711470149257,
+      0.37263932229750907
     ]
   },
   "scenarios": [
     {
       "profile": "Wan Chai flat (1 bed, 2 guests)",
       "stay": "Short stay, weekday",
-      "price": 1017.5611795126713,
-      "lo": 596.620014382961,
-      "hi": 1842.4037331195168
+      "price": 841.4575598963011,
+      "lo": 496.6801227907201,
+      "hi": 1519.4432250051386
     },
     {
       "profile": "Wan Chai flat (1 bed, 2 guests)",
       "stay": "Short stay, weekend",
-      "price": 1079.012430331455,
-      "lo": 632.6503257642505,
-      "hi": 1953.6678184569835
+      "price": 936.2504766036772,
+      "lo": 552.6327456606273,
+      "hi": 1690.6134205492242
     },
     {
       "profile": "Wan Chai flat (1 bed, 2 guests)",
       "stay": "Monthly stay",
-      "price": 438.10360237415796,
-      "lo": 310.35119135062314,
-      "hi": 601.6366536752996
+      "price": 443.0709264593606,
+      "lo": 310.3808538017258,
+      "hi": 645.0206836106603
     },
     {
       "profile": "Mong Kok room (shared bath)",
       "stay": "Short stay, weekday",
-      "price": 407.2234338955772,
-      "lo": 238.764661898968,
-      "hi": 737.3217354678155
+      "price": 456.78035650971196,
+      "lo": 269.6199242509532,
+      "hi": 824.8209429595554
     },
     {
       "profile": "Mong Kok room (shared bath)",
       "stay": "Short stay, weekend",
-      "price": 456.312962179734,
-      "lo": 267.5470050746116,
-      "hi": 826.2035953390041
+      "price": 538.3224519854293,
+      "lo": 317.75109559426267,
+      "hi": 972.0637635464545
     },
     {
       "profile": "Mong Kok room (shared bath)",
       "stay": "Monthly stay",
-      "price": 207.17719137012298,
-      "lo": 146.76366004286106,
-      "hi": 284.51122396230795
+      "price": 215.40940370349176,
+      "lo": 150.89898850436728,
+      "hi": 313.5920516006486
     },
     {
       "profile": "Sai Kung house (3 bed, 6 guests)",
       "stay": "Short stay, weekday",
-      "price": 2502.6790519401375,
-      "lo": 1467.3794972009018,
-      "hi": 4531.369042894102
+      "price": 1953.27923668191,
+      "lo": 1152.9458137369334,
+      "hi": 3527.090425196596
     },
     {
       "profile": "Sai Kung house (3 bed, 6 guests)",
       "stay": "Short stay, weekend",
-      "price": 2574.1429235827095,
-      "lo": 1509.2804432920968,
-      "hi": 4660.762052914886
+      "price": 2191.151002347867,
+      "lo": 1293.3523932368819,
+      "hi": 3956.6220617127524
     },
     {
       "profile": "Sai Kung house (3 bed, 6 guests)",
       "stay": "Monthly stay",
-      "price": 1924.6658964398391,
-      "lo": 1363.4271680831375,
-      "hi": 2643.095247566808
+      "price": 1218.729316667337,
+      "lo": 853.7464845261013,
+      "hi": 1774.2207173352456
     }
   ],
   "levers": {
-    "base_price": 1017.5611795126713,
+    "base_price": 841.4575598963011,
     "items": [
       {
         "lever": "Accept monthly stays (28+ nights)",
-        "price": 438.10360237415796,
-        "change": -0.5694572363855569
-      },
-      {
-        "lever": "Add self check-in",
-        "price": 1039.1822209431832,
-        "change": 0.021247903188353456
-      },
-      {
-        "lever": "Add washer",
-        "price": 1055.6137097069911,
-        "change": 0.037395815564174706
-      },
-      {
-        "lever": "Add dedicated workspace",
-        "price": 1061.8206177823542,
-        "change": 0.04349560415706866
-      },
-      {
-        "lever": "+1 guest accommodated (sofa bed)",
-        "price": 1072.196662364829,
-        "change": 0.053692577853966306
+        "price": 443.0709264593606,
+        "change": -0.47344827882470575
       },
       {
         "lever": "Weekend check-in (vs. weekday)",
-        "price": 1079.012430331455,
-        "change": 0.06039071856909284
+        "price": 936.2504766036772,
+        "change": 0.11265323555837825
+      },
+      {
+        "lever": "Add dedicated workspace",
+        "price": 939.4736282249362,
+        "change": 0.11648367428146278
+      },
+      {
+        "lever": "+1 guest accommodated (sofa bed)",
+        "price": 957.1540207278956,
+        "change": 0.13749530142180033
       },
       {
         "lever": "+1 bedroom (sleeps 4)",
-        "price": 1380.31920671984,
-        "change": 0.3564975104306751
+        "price": 1243.1713198815526,
+        "change": 0.4774022828135951
       }
     ]
   },
   "lever_check": {
-    "Ridge": {
-      "weekend": 0.1017737828163805,
-      "plus_one_guest": 0.09349430116481461
+    "Linear regression": {
+      "weekend": 0.10595069993839967,
+      "plus_one_guest": 0.09823144085749536
     },
     "Random forest": {
-      "weekend": 0.13074748194003605,
-      "plus_one_guest": 0.07651057822105023
+      "weekend": 0.11909185955699453,
+      "plus_one_guest": 0.06991670985595855
     },
     "Gradient boosting": {
-      "weekend": 0.18186160149146335,
-      "plus_one_guest": 0.10436200123699368
-    },
-    "Hedonic regression": {
-      "weekend": 0.32206975252437475,
-      "plus_one_guest": 0.09414796599830555
+      "weekend": 0.14427557151440396,
+      "plus_one_guest": 0.10653494082284065
     }
+  },
+  "explanations": {
+    "llm_enabled": true,
+    "model": "gpt-4o-mini",
+    "start_price": 492.8030442014472,
+    "items": [
+      {
+        "profile": "Wan Chai flat (1 bed, 2 guests)",
+        "price": 841.4575598963011,
+        "source": "OpenAI gpt-4o-mini",
+        "text": "The benchmark price for your listing is HKD 840 per night, with an 80% band ranging from HKD 500 to HKD 1,520. In comparison, the typical Hong Kong listing price is HKD 490. Factors associated with a higher price include a minimum stay length (39%), room type (18%), location and transit (13%), and property type (6%). Conversely, factors associated with a lower price are size and capacity (11%) and amenities (7%)."
+      },
+      {
+        "profile": "Mong Kok room (shared bath)",
+        "price": 456.78035650971196,
+        "source": "OpenAI gpt-4o-mini",
+        "text": "The benchmark price for your listing is HKD 460 per night, with an 80% band ranging from HKD 270 to HKD 820. The typical Hong Kong listing price is HKD 490, which is slightly higher than your benchmark. Factors associated with a higher price include a minimum stay length, which raises the price by 45%. Conversely, factors associated with a lower price include location and transit (10%), room type (9%), size and capacity (8%), property type (7%), and weekend check-in (6%)."
+      },
+      {
+        "profile": "Sai Kung house (3 bed, 6 guests)",
+        "price": 1953.27923668191,
+        "source": "OpenAI gpt-4o-mini",
+        "text": "The benchmark rental price for your listing in Sai Kung is HKD 1,950 per night, with an 80% price band ranging from HKD 1,150 to HKD 3,530. In comparison, the typical Hong Kong listing price is HKD 490. Factors associated with a higher price include size and capacity (higher by 122%), minimum stay length (higher by 34%), room type (higher by 26%), and property type (higher by 11%). Conversely, factors associated with a lower price are location and transit (lower by 8%) and weekend check-in (lower by 5%)."
+      },
+      {
+        "profile": "Wan Chai flat, monthly stay",
+        "price": 443.0709264593606,
+        "source": "OpenAI gpt-4o-mini",
+        "text": "The benchmark price for your listing is HKD 440 per night, with an 80% band ranging from HKD 310 to HKD 650. The typical Hong Kong listing price is HKD 490, which is higher than your benchmark. Factors associated with a higher price include room type (+20%), property type (+11%), and location & transit (+10%). Conversely, factors associated with a lower price are minimum stay length (-29%), amenities (-13%), and size & capacity (-11%)."
+      }
+    ]
   },
   "meta": {
     "random_state": 42,
-    "python_note": "scikit-learn / statsmodels / matplotlib; see notebook header",
-    "model_best": "Random forest",
+    "model_best": "Gradient boosting",
     "k_segments": 5
   }
 }

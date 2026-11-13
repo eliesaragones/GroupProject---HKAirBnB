@@ -2,10 +2,11 @@ pandas==2.3.3
 numpy==1.26.4
 scikit-learn==1.8.0
 statsmodels==0.15.0
+shap==0.46.0
 scipy==1.16.2
 matplotlib==3.9.2
 requests==2.32.5
-vaderSentiment==3.3.2
+truststore==0.10.5
 joblib==1.4.2
 # only needed to rebuild the notebook / report from build/ (not to run the notebook itself):
 nbformat==5.10.4

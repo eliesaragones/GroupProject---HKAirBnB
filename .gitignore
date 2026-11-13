@@ -12,3 +12,14 @@ __pycache__/
 # office lock files
 ~$*
 .~lock*
+
+# secrets (API keys) - never commit
+.env
+
+# LaTeX build files
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+Report.pdf
