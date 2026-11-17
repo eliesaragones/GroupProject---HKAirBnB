@@ -2,11 +2,9 @@
   "data": {
     "n_listings": 6614,
     "n_columns": 91,
-    "n_reviews": 122715,
-    "n_listings_with_reviews": 3731,
     "scrape_date": "2026-09-25",
-    "review_first": "2011-02-26",
-    "review_last": "2026-09-24",
+    "summary_price_agreement": 0.3922898447260396,
+    "quote_equals_min_nights": 0.9192335243553008,
     "n_empty_columns": 15,
     "license_missing": true,
     "price_missing_pct": 0.15285757484124585
@@ -667,7 +665,7 @@
         "change": 0.13749530142180033
       },
       {
-        "lever": "+1 bedroom (sleeps 4)",
+        "lever": "+1 bedroom and capacity 4",
         "price": 1243.1713198815526,
         "change": 0.4774022828135951
       }
@@ -696,25 +694,25 @@
         "profile": "Wan Chai flat (1 bed, 2 guests)",
         "price": 841.4575598963011,
         "source": "OpenAI gpt-4o-mini",
-        "text": "The benchmark price for your listing is HKD 840 per night, with an 80% band ranging from HKD 500 to HKD 1,520. In comparison, the typical Hong Kong listing price is HKD 490. Factors associated with a higher price include a minimum stay length (39%), room type (18%), location and transit (13%), and property type (6%). Conversely, factors associated with a lower price are size and capacity (11%) and amenities (7%)."
+        "text": "The benchmark price for your listing is HKD 840 per night, with an 80% band ranging from HKD 500 to HKD 1,520. In comparison, the typical Hong Kong listing price is HKD 490. Factors associated with a higher price include Stay length (minimum nights) at 39%, Room type at 18%, Location & transit at 13%, and Host profile at 9%. Conversely, factors associated with a lower price are Size & capacity at 11% and Amenities at 7%."
       },
       {
         "profile": "Mong Kok room (shared bath)",
         "price": 456.78035650971196,
         "source": "OpenAI gpt-4o-mini",
-        "text": "The benchmark price for your listing is HKD 460 per night, with an 80% band ranging from HKD 270 to HKD 820. The typical Hong Kong listing price is HKD 490, which is slightly higher than your benchmark. Factors associated with a higher price include a minimum stay length, which raises the price by 45%. Conversely, factors associated with a lower price include location and transit (10%), room type (9%), size and capacity (8%), property type (7%), and weekend check-in (6%)."
+        "text": "The benchmark price for your listing is HKD 460 per night, with an 80% band ranging from HKD 270 to HKD 820. The typical Hong Kong listing price is HKD 490, which is slightly higher than your benchmark. Factors associated with a higher price include Stay length (minimum nights) at 45% and Host profile at 8%. Conversely, factors associated with a lower price include Location & transit at 10%, Room type at 9%, Size & capacity at 8%, and Property type at 7%."
       },
       {
         "profile": "Sai Kung house (3 bed, 6 guests)",
         "price": 1953.27923668191,
         "source": "OpenAI gpt-4o-mini",
-        "text": "The benchmark rental price for your listing in Sai Kung is HKD 1,950 per night, with an 80% price band ranging from HKD 1,150 to HKD 3,530. In comparison, the typical Hong Kong listing price is HKD 490. Factors associated with a higher price include size and capacity (higher by 122%), minimum stay length (higher by 34%), room type (higher by 26%), and property type (higher by 11%). Conversely, factors associated with a lower price are location and transit (lower by 8%) and weekend check-in (lower by 5%)."
+        "text": "The benchmark price for your listing is HKD 1,950 per night, with an 80% band ranging from HKD 1,150 to HKD 3,530. In comparison, the typical Hong Kong listing price is HKD 490. Factors associated with a higher price include Size & capacity (higher by 122%), Stay length (minimum nights) (higher by 34%), Room type (higher by 26%), Property type (higher by 11%), and Host profile (higher by 6%). The only factor associated with a lower price is Location & transit, which lowers it by 8%."
       },
       {
         "profile": "Wan Chai flat, monthly stay",
         "price": 443.0709264593606,
         "source": "OpenAI gpt-4o-mini",
-        "text": "The benchmark price for your listing is HKD 440 per night, with an 80% band ranging from HKD 310 to HKD 650. The typical Hong Kong listing price is HKD 490, which is higher than your benchmark. Factors associated with a higher price include room type (+20%), property type (+11%), and location & transit (+10%). Conversely, factors associated with a lower price are minimum stay length (-29%), amenities (-13%), and size & capacity (-11%)."
+        "text": "The benchmark price for your listing is HKD 440 per night, with an 80% band ranging from HKD 310 to HKD 650. The typical rental price for a Hong Kong listing is HKD 490, which is higher than your benchmark. Factors associated with a higher price include Room type (20%), Host profile (13%), and Property type (11%). Conversely, factors associated with a lower price are Stay length (minimum nights) (29%), Amenities (13%), and Size & capacity (11%)."
       }
     ]
   },

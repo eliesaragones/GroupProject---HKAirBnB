@@ -81,9 +81,8 @@ display(scen[["profile", "stay", "price", "lo", "hi"]].round(0))
 RESULTS["scenarios"] = scen.drop(columns="profile_short").to_dict(orient="records")
 
 # %% [markdown]
-# **What-if levers.** We change one thing of the Wan Chai flat and see how its benchmark moves. We do *not* rank amenities by "model-implied uplift": when a flag such as *hair dryer*
-# is switched on for budget rooms, the model treats the room as a different (hotel-like) listing and returns implausible jumps; amenities are markers of listing type rather than priced
-# upgrades. Because single levers depend on the model, we cross-check the two that matter most (*weekend check-in* and *one more guest*) with the average effect over all short-stay
+# **What-if levers.** We change one thing of the Wan Chai flat (the bedroom lever also raises the capacity to 4 guests, because a bigger flat sleeps more people, so it is a package and not the effect of a bedroom alone) and see how its benchmark moves. We do *not* rank amenities by "model-implied uplift": amenity flags partly mark the *type* of listing (a flag such as *hair dryer*
+# can make a budget room look like a hotel-like listing to the model), so a single flag is not a priced upgrade. Because single levers depend on the model, we cross-check the two that matter most (*weekend check-in* and *one more guest*) with the average effect over all short-stay
 # listings under each model.
 
 # %%
@@ -94,7 +93,7 @@ def bench(**changes):
 
 base_price = bench()
 LEVERS = {"Accept monthly stays (28+ nights)": dict(long_stay=1), "Weekend check-in (vs. weekday)": dict(weekend=1), "+1 guest accommodated (sofa bed)": dict(accommodates=3),
-          "+1 bedroom (sleeps 4)": dict(bedrooms=2, accommodates=4), "Add dedicated workspace": dict(amenities=BASIC_KIT + ["Dedicated workspace"])}
+          "+1 bedroom and capacity 4": dict(bedrooms=2, accommodates=4), "Add dedicated workspace": dict(amenities=BASIC_KIT + ["Dedicated workspace"])}
 lev = pd.DataFrame([dict(lever=k, price=bench(**v), change=bench(**v) / base_price - 1) for k, v in LEVERS.items()]).sort_values("change")
 display(lev.round(3))
 RESULTS["levers"] = dict(base_price=float(base_price), items=lev.to_dict(orient="records"))

@@ -1,7 +1,7 @@
 # %% [markdown]
 # ## 2. Setup and data loading
-# We load the libraries, fix a random seed and the project folders, and read the three Inside Airbnb files (detailed listings, summary
-# listings and reviews). Then we audit the data: size, empty columns and how the price is stored.
+# We load the libraries, fix a random seed and the project folders, and read the Inside Airbnb detailed listings file (the summary file is only used for a check). We do not load the
+# file with the individual reviews: the review counts and rating scores that matter for this project are already summarised in the listings file. Then we audit the data.
 
 # %%
 # Libraries: pandas (tables), NumPy (arrays), matplotlib (charts), requests (web APIs), scikit-learn (machine learning), statsmodels (regression)
@@ -66,26 +66,27 @@ def pct(x, d=0):
     return f"{100*x:.{d}f}%"
 
 # %%
-# Load the files. L = listings (one row per listing), S = summary file (only used for a check), R = reviews (one row per review)
+# Load the files. L = listings (one row per listing), S = summary file (only used for a check)
 L = pd.read_csv(sorted(glob.glob(str(DATA / "listings*.csv.gz")))[0])
 S = pd.read_csv(DATA / "listings.csv")
-R = pd.read_csv(DATA / "reviews.csv.gz")
 SCRAPE_DATE = pd.to_datetime(L.last_scraped.iloc[0])
 
 # The price is stored as text such as "$1,024.33": remove "$" and "," and convert to a number (errors="coerce": unreadable -> NaN)
 L["price_hkd"] = pd.to_numeric(L.price.astype(str).str.replace(r"[$,]", "", regex=True), errors="coerce")
 for c in ["first_review", "last_review"]:
     L[c] = pd.to_datetime(L[c])
-R["date"] = pd.to_datetime(R["date"])
 
 # First audit of the data
 empty_cols = L.columns[L.isna().all()].tolist()
 same_price = (S.set_index("id").price.round(2) == L.set_index("id").price_hkd.round(2))[L.set_index("id").price_hkd.notna()]
-print(f"Detailed listings: {L.shape[0]:,} rows x {L.shape[1]} columns (scraped {SCRAPE_DATE.date()}) | Summary: {S.shape[0]:,} x {S.shape[1]} | Reviews: {R.shape[0]:,}")
+print(f"Detailed listings: {L.shape[0]:,} rows x {L.shape[1]} columns (scraped {SCRAPE_DATE.date()}) | Summary: {S.shape[0]:,} x {S.shape[1]}")
 print(f"Completely empty columns: {len(empty_cols)}, e.g. {empty_cols[:6]}")
 print(f"The summary price equals the detailed price for only {pct(same_price.mean())} of the listings -> we use the detailed file")
-RESULTS["data"] = dict(n_listings=len(L), n_columns=L.shape[1], n_reviews=len(R), n_listings_with_reviews=int(R.listing_id.nunique()),
-                       scrape_date=str(SCRAPE_DATE.date()), review_first=str(R.date.min().date()), review_last=str(R.date.max().date()),
+quote_nights = (pd.to_datetime(L.price_quote_checkout_date) - pd.to_datetime(L.price_quote_checkin_date)).dt.days
+quote_is_min = float((quote_nights == L.minimum_nights)[L.price_hkd.notna() & L.minimum_nights.notna()].mean())     # does the quoted stay last as long as the minimum stay?
+print(f"The quoted stay is exactly as long as the minimum stay for {pct(quote_is_min)} of the listings with a price")
+RESULTS["data"] = dict(n_listings=len(L), n_columns=L.shape[1], scrape_date=str(SCRAPE_DATE.date()),
+                       summary_price_agreement=float(same_price.mean()), quote_equals_min_nights=quote_is_min,
                        n_empty_columns=len(empty_cols), license_missing=bool(L.license.isna().all()), price_missing_pct=float(L.price_hkd.isna().mean()))
 pd.DataFrame({"missing_%": (L[["price_hkd", "minimum_nights", "bedrooms", "beds", "review_scores_rating"]].isna().mean() * 100).round(1)}).T
 

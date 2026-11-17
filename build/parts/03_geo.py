@@ -89,7 +89,7 @@ def price_map(regime, title, name):
         z[d.min(axis=1) > max_km] = np.nan                                                            # no colour where no flat is nearby
         ax.scatter(df.longitude, df.latitude, s=1, color="#d9d8d1", zorder=1)                         # grey dots: all listings (outline of the land)
         im = ax.pcolormesh(gx, gy, np.ma.masked_invalid(z.reshape(gx.shape)), cmap=blue_red, vmin=-0.7, vmax=0.7, zorder=2, rasterized=True)
-        ax.set(xlim=xlim, ylim=ylim, xticks=[], yticks=[], aspect=1 / np.cos(np.radians(22.3)), title=f"{sub} (median of the {k} nearest flats)")
+        ax.set(xlim=xlim, ylim=ylim, xticks=[], yticks=[], aspect=1 / np.cos(np.radians(22.3)), title=sub)
         ax.grid(False)
         if sub == "Urban core":
             for hub, (la, lo) in HUBS.items():

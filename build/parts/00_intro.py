@@ -1,6 +1,7 @@
 # %% [markdown]
 # # What should a Hong Kong host charge? A data-driven pricing benchmark for short- and mid-term rentals
 # **IS3240 Advanced Business Programming in Python – Group Project (code notebook)**
+# **Group: Exchange Pro 2** – Pol Montanera (SID 40181821), Guillem Rovira (SID 40181810), Elies Aragonès (SID 40181833), Mark Hristovski (SID 40178816)
 #
 # ## 1. The business problem
 #
@@ -30,7 +31,7 @@
 # | Insight | Which factors matter? Who is over- or under-priced? | 9 – 11 |
 # | Action | How would a host use it, and why is the price what it is? | 12 – 13 |
 #
-# **Data:** Inside Airbnb – Hong Kong (detailed listings and reviews, scraped 25 Sep 2026) plus the **MTR station locations from
+# **Data:** Inside Airbnb – Hong Kong (detailed listings, including review counts and ratings, scraped 25 Sep 2026) plus the **MTR station locations from
 # OpenStreetMap** (Overpass API, a web-data-collection step as in Week 4).
 #
 # **How to run:** place the data files in `data/` and run all cells (*Restart & Run All*). The MTR stations are saved in

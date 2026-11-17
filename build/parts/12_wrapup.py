@@ -3,9 +3,9 @@
 # **The story in five sentences**
 # 1. Hong Kong rentals are **two markets**, tourist stays and monthly rentals; stay length is the master variable of the price.
 # 2. A machine-learning benchmark predicts a fair price clearly better than "look at comparable listings", on hosts it has never seen.
-# 3. **Listing type, stay type and the operator** explain most of the price; **distance to the MTR does not** differentiate prices on its own.
+# 3. **Listing type and stay type** explain most of the price; **distance to the MTR does not** differentiate prices on its own.
 # 4. Listings priced **far above** their benchmark get **fewer reviews**; discounts do not clearly buy more.
-# 5. Every price comes with a **band** and a **"why this price?"** explanation whose numbers are computed by us and checked.
+# 5. Every price comes with a **band** and a **"why this price?"** explanation whose numbers are computed by SHAP and checked for consistency.
 #
 # **Decisions we made (and why)**
 # | Decision | Reason |
@@ -14,13 +14,13 @@
 # | Treat **stay length as a core factor** and a segmentation (≥ 28 nights) | The price is a quote for a specific stay; monthly stays cost a fraction per night |
 # | Add quote-context controls (nights, weekend check-in) but **not the lead time** | Lead time partly reflects demand (leakage) |
 # | Model `log(price)` | Percentage errors, tamed skewness |
-# | Split and cross-validate **by host**; test set used once; models chosen by cross-validation | Prevents memorising professional hosts; honest estimate |
+# | Split and cross-validate **by host**; test set only for the final evaluation; models chosen by cross-validation | Prevents memorising professional hosts; honest estimate |
 # | Compare with the **comparable-listings baseline** | The business question is "better than what I do now?" |
-# | Two host flags only; no ratings or reviews in the launch-time model | Richer host variables did not help on unseen hosts; a new host has no reviews |
-# | Explain with permutation importance on unseen hosts and say *association* | Observational data, no causal claims |
+# | Two host flags only; no ratings or reviews in the launch-time model | Host-history columns (tenure, response rates) are empty in this dataset; a new host has no reviews |
+# | Explain with permutation importance on unseen hosts and say *association*; do not turn importance into investment advice | Importance measures what the model uses, not what a change would earn |
 # | Segment with KMeans **without price**, minimum segment size | Price differences between segments are findings; segments big enough to matter |
 # | Report a band and verify its coverage; no amenity "uplift" ranking | Avoids false precision; amenities mostly mark the listing type |
-# | Keep the code simple: basic pandas / NumPy / scikit-learn tools and SHAP for the explanations | The analysis must be readable and reproducible by the whole group |
+# | Keep the code simple: basic pandas / NumPy / scikit-learn tools and SHAP for the explanations (the language model only words them, and its text is checked) | The analysis must be readable and reproducible by the whole group |
 #
 # **Limitations**
 # * The price is an **asking price quoted for one stay** (not a transaction price or revenue); seasonality beyond weekday/weekend is not modelled; listings without a price (mostly not

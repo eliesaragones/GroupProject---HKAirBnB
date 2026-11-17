@@ -23,3 +23,6 @@ __pycache__/
 *.toc
 *.synctex.gz
 Report.pdf
+
+# local copies named for submission
+submission/

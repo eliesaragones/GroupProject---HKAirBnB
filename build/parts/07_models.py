@@ -6,7 +6,7 @@
 # 1. **Split by host, not by listing.** A professional host with 40 near-identical listings would otherwise appear in both train and test and the model
 #    would be rewarded for memorising the host. All listings of a host go to the same side (`GroupShuffleSplit`, 80/20); cross-validation also keeps hosts together (`GroupKFold`).
 # 2. **Everything that is "learned" from data uses the training part only** (the median that fills missing values, the settings of the models).
-# 3. **The model is chosen with cross-validation on the training data**; the test set is used once, to report the final performance.
+# 3. **The model is chosen with cross-validation on the training data**; the test set is only used to report the final performance (never to choose models or settings).
 #
 # **Models:** the *comparable-listings baseline* (what hosts do today: median price of listings in the same district, room type and stay type), **linear regression**
 # (simple and transparent), **random forest** and **gradient boosting** (non-linear effects and interactions without hand-made terms).
@@ -74,7 +74,7 @@ BEST = min(cv_mae, key=cv_mae.get)                             # chosen by cross
 print("CV error (MAE of the log price):", {k: round(v, 3) for k, v in cv_mae.items()}, "-> selected:", BEST)
 
 # %% [markdown]
-# **The final exam: the test set (used once).** We predict the 20% of listings that the models have never seen and compare with the real prices and with the two baselines.
+# **The final exam: the test set (never used to choose a model).** We predict the 20% of listings that the models have never seen and compare with the real prices and with the two baselines.
 
 # %%
 preds = {"Global median": np.full(len(test_idx), np.median(p_train)),            # naive: everyone gets the overall median
@@ -145,6 +145,6 @@ fig.tight_layout(w_pad=1.2)
 savefig("fig4_model_performance", fig)
 
 # %% [markdown]
-# **Finding.** The best machine-learning model reduces the typical error by about a fifth or more compared with what a host does today, and the improvement is not luck
+# **Finding.** The best machine-learning model reduces the average pricing error (MAE) by about a quarter compared with what a host does today, and the improvement is not luck
 # (the bootstrap interval stays well above zero). The points in the right-hand chart follow the diagonal but are far from perfect, which is realistic: asking prices
 # are noisy. That is why the benchmark always comes with a **price band** (section 12).

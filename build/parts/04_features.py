@@ -12,7 +12,7 @@
 # | **Transit & centrality** | distance to the nearest MTR, MTR stations within 1 km, distance to Central / TST / nearest hub | Hong Kong is a transit city |
 # | **Local competition** | listings within 500 m and 1 km | More substitutes = price pressure (or a proven tourist area) |
 # | **Amenities** | 30 most common amenity flags + total count | Convenience that guests pay for |
-# | **Host profile** | professional host (5+ listings), host lives in Hong Kong | Professional operators price differently. Richer host variables (portfolio size, tenure...) did **not** help on unseen hosts, because they let a model recognise individual hosts |
+# | **Host profile** | professional host (5+ listings), host lives in Hong Kong | Professional operators price differently. Host-history columns (tenure, response rates) are empty in this dataset, so we keep two simple flags |
 #
 # *Deliberately excluded:* the quote's **lead time** (days until the quoted check-in) is partly an *outcome* of demand (busy listings are booked up), so it would leak demand into price.
 # **Ratings and review activity** exist only after a listing has guests; a new host has none, so they are **not** used by the benchmark for new listings (only in a separate model, section 11).

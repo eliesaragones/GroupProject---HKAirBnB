@@ -1,14 +1,16 @@
 # %% [markdown]
 # ## 13. "Why this price?" – explaining each prediction in plain language
-# A host who is told "1,030 HKD" immediately asks **why**. We answer in two steps, separating *computing* from *writing*:
+# A host who is told a price immediately asks **why**. We answer in two steps, separating *computing* from *writing*:
 # 1. **We compute the reasons with SHAP**, a standard explainability method for machine-learning models. SHAP splits the prediction of the selected model into one **contribution per
-#    factor**: starting from the typical price of Hong Kong listings, each factor pushes this listing's price up or down, and the contributions add up exactly to the prediction.
-#    We add the contributions of the factors of each business group (size, location & transit, amenities...), so that the result is readable for a host.
+#    factor**: starting from the average prediction for Hong Kong listings, each factor pushes this listing's price up or down. The model predicts the **log of the price**, so the contributions
+#    add up exactly *on the log scale* (we check this below); on the price scale they multiply, and we show each one as a percentage, exp(contribution) - 1. We add the contributions of the
+#    factors of each business group (size, location & transit, amenities, host...) so that the result is readable for a host, and we show the main effects only (at least 3%, at most the 6 largest), not the full reconciliation.
 # 2. **A language model (OpenAI API, called with `requests` as in Week 4) writes the explanation** from those numbers only. It never sees our data or our model.
 #
-# *Risks of AI-generated text (Week 3).* The factors are given to the model in two lists (raising / lowering the price) and a **check** compares every number of its answer with the numbers
-# we gave it; if one is not supported, a **fixed template** is used instead. Without an API key the template is used too, so the notebook always runs. The key is read from the
-# environment (`OPENAI_API_KEY`) or a git-ignored `.env` file and is never written to the notebook or the repository.
+# *Risks of AI-generated text (Week 3).* The factors are given to the model in two lists (raising / lowering the price). A **consistency check** then verifies that every number in the answer is one of
+# the numbers we gave it, that the benchmark price and the 80% band appear, and that each factor percentage appears in a sentence with the right direction (higher / lower). This catches wrong numbers
+# and reversed directions, but it is a plausibility check and not a proof that the wording is perfect; if it fails, a **fixed template** is used instead. Without an API key the template is used too,
+# so the notebook always runs. The key is read from the environment (`OPENAI_API_KEY`) or a git-ignored `.env` file and is never written to the notebook or the repository.
 
 # %%
 def read_api_key():
@@ -24,17 +26,22 @@ def read_api_key():
 OPENAI_KEY, OPENAI_MODEL = read_api_key(), os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
 print("LLM explanations:", f"ON (model {OPENAI_MODEL})" if OPENAI_KEY else "OFF - no OPENAI_API_KEY found, the template is used")
 
-# Business labels: the factors that a host recognises, in 9 groups
+# Business labels: the factors that a host recognises, in 10 groups (together they cover every column of the model)
 FACTOR_GROUPS = {
     "Stay length (minimum nights)": ["long_stay", "log_min_nights", "q_log_nights"], "Weekend check-in": ["q_weekend"], "Room type": ["room_type"],
     "Property type": ["property_type_grp"], "Size & capacity": ["accommodates", "bedrooms", "studio", "beds", "baths"], "Shared bathroom": ["bath_shared"],
     "Location & transit": ["district_grp", "region", "lat", "lon"] + FAMILIES["Transit & centrality"], "Local competition": FAMILIES["Local competition"],
-    "Amenities": FAMILIES["Amenities"]}
+    "Amenities": FAMILIES["Amenities"], "Host profile": FAMILIES["Host profile"]}
 
 import shap
 EXPLAINER = shap.TreeExplainer(FINAL)                                        # SHAP for the selected tree model (contributions in log price)
 START_PRICE = float(np.exp(np.ravel(EXPLAINER.expected_value)[0]))           # starting point: typical price of a Hong Kong listing in the model
 GROUP_COLS = {label: family_columns(cols) for label, cols in FACTOR_GROUPS.items()}      # model columns of every business group
+
+assert sorted(sum(GROUP_COLS.values(), [])) == sorted(X.columns)                 # every model column belongs to exactly one group
+shap_all = EXPLAINER.shap_values(X)
+add_gap = np.abs(shap_all.sum(axis=1) + np.ravel(EXPLAINER.expected_value)[0] - FINAL.predict(X)).max()
+print(f"SHAP check: starting point + sum of all contributions = predicted log price (largest difference {add_gap:.1e})")
 
 def factor_effects(row_df):
     """SHAP contribution of every factor group, as the % by which it raises or lowers the price (contributions of log price multiply)."""
@@ -68,7 +75,7 @@ def template_text(f):
 
 SYSTEM_PROMPT = ("You are a pricing analyst explaining a rental price benchmark to a Hong Kong host. Write 3-5 plain-English sentences (at most 120 words), no bullet points, no advice. "
                  "Use ONLY the facts and numbers in the JSON; never invent anything. Say the benchmark price and the 80% band, compare it with the typical Hong Kong listing, "
-                 "then name the factors: those in the HIGHER list raise the price, those in the LOWER list lower it, with their percentages. "
+                 "then name the factors: those in the HIGHER list raise the price, those in the LOWER list lower it, each with its percentage. Use the factor names exactly as given. "
                  "Use the words 'associated with', not 'causes'.")
 
 def call_openai(facts):
@@ -79,11 +86,26 @@ def call_openai(facts):
     response.raise_for_status()                                              # stops with an error if, e.g., the key is wrong
     return response.json()["choices"][0]["message"]["content"].strip()
 
-def numbers_ok(text, facts):
-    """True if every number of the text matches (within 3%, or +-1 for small values) a number of the facts we sent."""
-    allowed = [float(x) for x in re.findall(r"\d+(?:\.\d+)?", json.dumps(facts).replace(",", ""))] + [80.0]    # 80 = the "80% band"
-    written = [float(x) for x in re.findall(r"\d+(?:\.\d+)?", text.replace(",", ""))]
-    return all(any(abs(x - a) <= max(1.0, 0.03 * a) for a in allowed) for x in written)
+def text_ok(text, facts):
+    """Consistency check of the generated text against the facts we sent. It passes only if
+    (1) every number in the text is one of our numbers, (2) the sentence that speaks of the benchmark contains the benchmark price and the band appears,
+    (3) every factor percentage appears, and each time in a sentence with the right direction word (higher/lower)."""
+    clean = text.replace(",", "")
+    allowed = [float(x) for x in re.findall(r"\d+(?:\.\d+)?", json.dumps(facts).replace(",", ""))] + [80.0]            # 80 = the "80% band"
+    written = [float(x) for x in re.findall(r"\d+(?:\.\d+)?", clean)]
+    if not all(any(abs(x - a) <= max(1.0, 0.03 * a) for a in allowed) for x in written):
+        return False
+    sentences = re.split(r"(?<=[.!?])\s+", clean)
+    price, band = str(facts["benchmark_price_hkd_per_night"]), facts["band_80pct_hkd"]
+    if not any("benchmark" in s.lower() and re.search(rf"\b{price}\b", s) for s in sentences) or not all(str(b) in clean for b in band):
+        return False
+    up_words, down_words = ("higher", "raise", "increase", "above", "up "), ("lower", "decrease", "reduce", "below", "down")
+    for key, pct_key, words in [("factors_associated_with_a_HIGHER_price", "higher_by_pct", up_words), ("factors_associated_with_a_LOWER_price", "lower_by_pct", down_words)]:
+        for f in ([] if facts[key] == "none" else facts[key]):
+            hits = [s.lower() for s in sentences if re.search(rf"\b{f[pct_key]}\b", s)]      # sentences that contain this percentage
+            if not hits or not any(any(w in s for w in words) for s in hits):
+                return False
+    return True
 
 # %%
 def explain_price(listing, stay):
@@ -96,7 +118,7 @@ def explain_price(listing, stay):
     if OPENAI_KEY:
         try:                                                                 # try the language model; any failure falls back to the template
             answer = call_openai(facts)
-            if numbers_ok(answer, facts):
+            if text_ok(answer, facts):
                 text, source = answer, f"OpenAI {OPENAI_MODEL}"
         except Exception as e:
             print("LLM call failed, template used:", type(e).__name__)
@@ -112,7 +134,7 @@ RESULTS["explanations"] = dict(
     items=[dict(profile=name.replace("\n", " "), price=float(e["price"]), source=e["source"], text=e["text"])
            for name, e in EXPLANATIONS.items()])
 
-# Figure 9: blue = factor groups that raise the price, orange = factor groups that lower it (relative to comparable listings); the 6 largest effects
+# Figure 9: blue = factor groups that raise the price, orange = factor groups that lower it (relative to the typical Hong Kong listing); the 6 largest effects
 fig, axes = plt.subplots(1, 2, figsize=(7.4, 3.3))
 for ax, name in zip(axes, list(PROFILES)[:2]):
     e = EXPLANATIONS[name]

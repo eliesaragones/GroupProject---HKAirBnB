@@ -2,7 +2,7 @@
 # ## 10. From prediction to action: who is priced away from the benchmark, and does it cost them guests?
 # A prediction is only useful if it changes a decision. We use the benchmark as a **price audit**:
 # 1. for *every* listing we take the prediction of a model that has never seen that host (5-fold cross-validation grouped by host);
-# 2. **price gap** = real price ÷ benchmark − 1; a listing is *above benchmark* if it is ≥ 25% above, *below benchmark* if ≥ 20% below (the same ±25% band on a ratio scale);
+# 2. **price gap** = real price ÷ benchmark − 1; a listing is *above benchmark* if it is ≥ 25% above (ratio ≥ 1.25), *below benchmark* if it is ≥ 20% below (ratio ≤ 1/1.25 = 0.8); these are our own audit thresholds, not demand-loss thresholds;
 # 3. we ask what a host cares about: **do listings priced above the benchmark attract fewer guests?** We use the number of reviews in the last 12 months as a demand proxy
 #    (reviews are a roughly constant fraction of stays).
 
@@ -64,22 +64,22 @@ a.text(0.78, counts.max() * 0.92, f"Above\nbenchmark\n{pct(pos_share.get('Above 
 a.text(-0.68, counts.max() * 0.92, f"Below\nbenchmark\n{pct(pos_share.get('Below benchmark', 0))}", color=PAL["aqua"], fontsize=7.5, fontweight="bold", va="top")
 a.text(0.0, counts.max() * 1.02, f"In line {pct(pos_share.get('In line', 0))}", color=PAL["blue"], fontsize=7.5, fontweight="bold", ha="center")
 a.set_ylim(0, counts.max() * 1.12); a.grid(axis="x", visible=False)
-a.set_title(f"{pct(1 - pos_share.get('In line', 0))} of listings sit outside the ±25% band (clipped at 150%)", fontsize=8.2)
+a.set_title(f"{pct(1 - pos_share.get('In line', 0))} of listings are above +25% or below -20%", fontsize=8.2)
 b = ax[1]
 b.bar(range(5), quint.rev_mean, color=PAL["blue"], width=0.66)
 for i, v in enumerate(quint.rev_mean):
     b.text(i, v + 0.25, f"{v:.1f}", ha="center", fontsize=7.5)
 b.set_xticks(range(5)); b.set_xticklabels([f"{v*100:+.0f}%" for v in quint.gap_med]); b.grid(axis="x", visible=False)
 b.set_xlabel("Price gap vs. benchmark, by quintile (median)"); b.set_ylabel("Reviews in the last 12 months (mean)")
-b.set_title("Priced above benchmark = fewer reviews", fontsize=8.2)
+b.set_title("Above benchmark: fewer reviews", fontsize=8.2)
 fig.tight_layout(w_pad=1.2)
 savefig("fig7_price_gap_demand", fig)
 RESULTS["gap"] = dict(shares={k: float(v) for k, v in pos_share.items()}, thresholds=[TH_LO, TH_HI], quintiles=quint.reset_index().to_dict(orient="records"))
 
 # %% [markdown]
 # **Finding.** About half of the listings are priced more than 20-25% away from their benchmark. Among listings of the same kind, **the more a listing is priced above its
-# benchmark, the fewer reviews it gets** (the most expensive fifth gets about half the reviews of those in line), while discounts do not bring much extra. Careful: this is an
-# *association* (a listing can be expensive *and* unpopular for a reason we cannot see, such as poor photos), not proof that lowering the price will raise demand.
+# benchmark, the fewer reviews it gets** (the most expensive fifth gets about half the reviews of those in line), while discounts go with only slightly more. Careful: we compare today's asking price with the reviews of the last year, so this is
+# an *association* (a listing can be expensive *and* unpopular for a reason we cannot see, such as poor photos), not the effect of changing a price; the 25% is our audit threshold, not a demand cliff.
 
 # %% [markdown]
 # ## 11. Existing listings: do ratings and reviews add information?
